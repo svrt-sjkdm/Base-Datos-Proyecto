@@ -24,7 +24,7 @@ go
 --Se crean las tablas de nuestra base de datos
 create table platillos(
 idplatillo char(6),
-nombreplatillo varchar(20),
+nombreplatillo varchar(20) not null,
 constraint const_plat check (idplatillo like 'PLA[0-9][0-9][0-9]')
 )
 go
@@ -32,9 +32,9 @@ go
 create table socios(
 idsocio char(6),
 nombresocio varchar(30) not null,
-peso float,
+peso float not null,
 ingreso date not null,
-constraint const_socs check (idsocio like 'SOC[0-9][0-9][0-9]')
+constraint const_socs check (idsocio like 'SOC[0-9][0-9][0-9]' and peso >= 0)
 )
 go
 
@@ -47,7 +47,7 @@ go
 
 create table horario(
 idhorario int,
-nomhorario varchar(15),
+nomhorario varchar(15) not null,
 constraint const_hor check (idhorario between 1 and 4)
 )
 go
