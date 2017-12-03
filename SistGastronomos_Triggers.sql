@@ -1,4 +1,11 @@
--- Creacion de triggers
+/*
+Proyecto base de datos 2018-1.
+En este script se crean los triggers de insertar, borrar y actualizar que permiten
+tener una mayor integridad en los datos.
+Realizado por:
+	-Hernández Bravo David Gustavo
+	-Ramirez Nuñez Daniel
+*/
 
 -- TRIGGERS DE BORRADO
 
