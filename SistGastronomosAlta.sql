@@ -6,6 +6,9 @@ Realizado por:
 	-Ramirez Nuñez Daniel
 */
 
+use master
+go
+
 --Cambio a SISTEMA_GASTRONOMOS
 use SISTEMA_GASTRONOMOS
 go
