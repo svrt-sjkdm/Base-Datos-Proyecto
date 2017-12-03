@@ -2,10 +2,10 @@
 
 -- TRIGGERS DE BORRADO
 
--- Al borrar en tabla socios, borrar en tabla gustan 
-create trigger borrarSocio
-	on socios 
-	for delete as 
+-- Al borrar en tabla socios, borrar en tabla gustan
+create trigger borraSocio
+	on socios
+	for delete as
 	begin
 		delete socios from socios, deleted where socios.idsocio = deleted.idsocio
 		delete gustan from gustan, deleted where gustan.idsocio = deleted.idsocio
@@ -13,18 +13,18 @@ create trigger borrarSocio
 go
 
 -- Al borrar en la tabla platillo, borrar en tabla sirven ,tabla hechos y en tabla gustan
-create trigger borrarPlatillo 
-	on platillos 
+create trigger borraPlatillo
+	on platillos
 	for delete as
 	begin
 		delete platillos from platillos, deleted where platillos.idplatillo = deleted.idplatillo
 		delete hechos from hechos, deleted where hechos.idplatillo = deleted.idplatillo
-		delete gustan from gustan, deleted where gustan.idplatillo = deleted.idplatillo 
+		delete gustan from gustan, deleted where gustan.idplatillo = deleted.idplatillo
 	end
 go
 
 -- Al borrar en la tabla ingrediente, borrar en tabla son y en tabla hechos
-create trigger borrarIngrediente 
+create trigger borraIngrediente
 	on ingredientes
 	for delete as
 	begin
@@ -35,7 +35,7 @@ go
 
 -- Al borrar en la tabla horario, borrar en sirven
 create trigger borraHorario
-	on horario 
+	on horario
 	for delete as
 	begin
 		delete horario from horario, deleted where horario.idhorario = deleted.idhorario
@@ -56,7 +56,7 @@ go
 -- TRIGGERS DE INSERTAR
 
 -- Al insertar en gustan, verificar que idsocio existe en socios e idplatillo exista en platillos
-create trigger insertaGustan 
+create trigger insertaGustan
 	on gustan
 	for insert as
 	if exists ( select socios.idsocio from socios, inserted where socios.idsocio = inserted.idsocio)
@@ -78,8 +78,8 @@ create trigger insertaGustan
 					rollback transaction
 					print "Error: verifica que la PK exista en la tabla socios"
 				end
-		end	
-	else 
+		end
+	else
 		begin
 			rollback transaction
 			print "Error: verifica que la PK existe en las tablas platillos y socios"
@@ -89,7 +89,7 @@ go
 -- Al insertar en sirven, verificar que idplatillo exista en platillos e idhorario existe en horario
 create trigger insertaSirven
 	on sirven
-	for insert as 
+	for insert as
 	if exists ( select platillos.idplatillo from platillos, inserted where platillos.idplatillo = inserted.idplatillo)
 		begin
 			if exists ( select horario.idhorario from horario, inserted where horario.idhorario = inserted.idhorario)
@@ -109,13 +109,13 @@ create trigger insertaSirven
 					rollback transaction
 					print "Error: verifica que la PK existe en la tabla platillos"
 				end
-		end	
-	else 
+		end
+	else
 		begin
 			rollback transaction
 			print "Error: veritfica que la PK existe en las tablas horario y platillos"
 		end
-go	
+go
 
 -- Al insertar en hechos, verificar que idplatillo exista en platillos e iding existe en ingredientes
 create trigger insertaHechos
@@ -140,8 +140,8 @@ create trigger insertaHechos
 					rollback transaction
 					print "Error: verifica que la PK exista en la tabla platillos"
 				end
-		end	
-	else 
+		end
+	else
 		begin
 			rollback transaction
 			print "Error: verifica que la PK existe en las tablas ingredientes y platillos"
@@ -171,8 +171,8 @@ create trigger insertaSon
 					rollback transaction
 					print "Error: verifica que la PK exista en la tabla ingredientes"
 				end
-		end	
-	else 
+		end
+	else
 		begin
 			rollback transaction
 			print "Error: verifica que la PK existe en las tablas ingredientes y temporada"
@@ -183,13 +183,13 @@ go
 
 -- Al actualizar un socio (id), actualizar en tabla gustan
 create trigger actualizaSocio
-	on socios 
+	on socios
 	for update as
 	if update (idsocio)
 	begin
-		update socios set idsocio = inserted.idsocio 
+		update socios set idsocio = inserted.idsocio
 			from socios, deleted, inserted where deleted.idsocio = socios.idsocio
-		update gustan set idsocio = inserted.idsocio 
+		update gustan set idsocio = inserted.idsocio
 			from gustan, inserted, deleted where deleted.idsocio = gustan.idsocio
 	end
 go
@@ -200,19 +200,19 @@ create trigger actualizaPlatillo
 	for update as
 	if update (idplatillo)
 	begin
-		update platillos set idplatillo = inserted.idplatillo 
+		update platillos set idplatillo = inserted.idplatillo
 			from platillos, deleted, inserted where deleted.idplatillo = platillos.idplatillo
-		update gustan set  idplatillo = inserted.idplatillo 
+		update gustan set  idplatillo = inserted.idplatillo
 			from gustan, deleted, inserted where deleted.idplatillo = gustan.idplatillo
-		update sirven set idplatillo = inserted.idplatillo 
+		update sirven set idplatillo = inserted.idplatillo
 			from sirven, deleted, inserted where deleted.idplatillo = sirven.idplatillo
-		update hechos set idplatillo = inserted.idplatillo 
+		update hechos set idplatillo = inserted.idplatillo
 			from hechos, deleted, inserted where deleted.idplatillo = hechos.idplatillo
 	end
 go
 
 -- Al actualizar un horario (id), actualizar en tabla sirven
-create trigger actualizaHorario 
+create trigger actualizaHorario
 	on horario
 	for update as
 	if update (idhorario)
@@ -225,8 +225,8 @@ create trigger actualizaHorario
 go
 
 -- Al actualizar una temporada (id), actualizar en tabla son
-create trigger actualizaTemporada 
-	on temporada 
+create trigger actualizaTemporada
+	on temporada
 	for update as
 	if update (idtemp)
 	begin
