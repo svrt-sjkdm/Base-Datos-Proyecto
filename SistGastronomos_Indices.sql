@@ -1,4 +1,10 @@
--- Creacion de indices para las llaves primarias de las tablas
+/*
+Proyecto base de datos 2018-1.
+En este script se crean los indices para las llaves primarias de cada una de las tablas.
+Realizado por:
+	-Hernández Bravo David Gustavo
+	-Ramirez Nuñez Daniel
+*/
 
 -- Indice en tabla socios
 create unique clustered index socioIndex
