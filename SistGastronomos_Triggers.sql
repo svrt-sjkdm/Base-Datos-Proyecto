@@ -6,6 +6,11 @@ Realizado por:
 	-Hernández Bravo David Gustavo
 	-Ramirez Nuñez Daniel
 */
+use master
+go
+
+use SISTEMA_GASTRONOMOS
+go
 
 -- TRIGGERS DE BORRADO
 
