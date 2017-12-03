@@ -5,6 +5,11 @@ Realizado por:
 	-Hernández Bravo David Gustavo
 	-Ramirez Nuñez Daniel
 */
+use master
+go
+
+use SISTEMA_GASTRONOMOS
+go
 
 -- Indice en tabla socios
 create unique clustered index socioIndex
