@@ -38,14 +38,15 @@ end
 go
 
 create proc sp_actualiza
-@id char(6),
+@oldID char(6)
+@newID char(6),
 @nombre varchar(30),
 @peso float,
 @ingreso date
 as
 begin
 	update socios
-	set idsocio = @id, nombresocio = @nombre, peso = @peso, ingreso = @ingreso where idsocio = @id
+	set idsocio = @newID, nombresocio = @nombre, peso = @peso, ingreso = @ingreso where idsocio = @oldID
 end
 
 -- Procedimiento para borrar en tabla socios
@@ -59,5 +60,8 @@ create proc sp_borra
 @id char(6)
 as
 begin
-	delete from socios where idsocio = @id
+	if exists (select idsocio from socios where idsocio = @id)
+		delete from socios where idsocio = @id
+	else
+		print "El id no existe en la tabla socios"
 end
